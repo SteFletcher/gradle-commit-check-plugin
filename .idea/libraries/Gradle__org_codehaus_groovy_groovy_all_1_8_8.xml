@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.codehaus.groovy:groovy-all:1.8.8">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-all/1.8.8/98a489343d3c30da817d36cbea5de11ed07bef31/groovy-all-1.8.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-all/1.8.8/5f847ed18009f8a034bad3906e39f771c01728c1/groovy-all-1.8.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
