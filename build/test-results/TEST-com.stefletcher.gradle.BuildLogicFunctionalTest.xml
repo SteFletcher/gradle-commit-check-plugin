@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.stefletcher.gradle.BuildLogicFunctionalTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-08-12T20:07:02" hostname="mbp0012-2.local" time="6.078">
+  <properties/>
+  <testcase name="file written to .git directory when directory exists" classname="com.stefletcher.gradle.BuildLogicFunctionalTest" time="6.078"/>
+  <system-out><![CDATA[:commitMessage
+fook git exists!!
+
+BUILD SUCCESSFUL
+
+Total time: 3.456 secs
+
+]]></system-out>
+  <system-err><![CDATA[fatal: Could not switch to '/Applications/Xcode.app/Contents/Developer/usr/etc/': No such file or directory
+
+]]></system-err>
+</testsuite>
