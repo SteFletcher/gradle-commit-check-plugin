@@ -1,13 +1,56 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.5"
+    }
+}
+
+apply plugin: "idea"
 apply plugin: "groovy"
 apply plugin: 'java-gradle-plugin'
+apply plugin: "com.gradle.plugin-publish"
 
 repositories {
     jcenter()
 }
 
+configurations {
+    gradleRuntime
+}
+
 dependencies {
     testCompile('org.ajoberstar:grgit:1.7.0')
+    testCompile('org.springframework.boot:spring-boot-starter-test:1.2.3.RELEASE')
+    testCompile('org.springframework.boot:spring-boot:1.2.5.RELEASE')
     testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude module: 'groovy-all'
+        gradleRuntime files("gradle/wrapper/gradle-wrapper.jar")
+    }
+}
+
+version = "0.1-SNAPSHOT"
+group = "com.stefletcher.gradle"
+
+idea {
+    module {
+        scopes.RUNTIME.plus += [ configurations.gradleRuntime ]
+    }
+}
+
+pluginBundle {
+    website = 'http://www.gradle.org/'
+    vcsUrl = 'https://github.com/gradle/gradle'
+    description = 'A plugin to generate clientside git commit checking'
+    tags = ['git', 'hook', 'validation', 'check', 'checker']
+
+    plugins {
+        gitHookPlugin {
+            id = 'com.stefletcher.gradle.git-hook-plugin'
+            displayName = 'Git Hook Generator Plugin'
+        }
     }
 }

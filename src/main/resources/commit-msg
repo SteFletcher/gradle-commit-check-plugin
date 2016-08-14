@@ -1,0 +1,4 @@
+#!/bin/sh
+#which java  2>&1
+echo "go away"
+exit 1

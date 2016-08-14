@@ -8,19 +8,26 @@ class DevPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.task('commitMessage') {
             def gitFolder = new File(project.projectDir.absolutePath+'/.git')
-//            def list = []
-//            gitFolder.eachFileRecurse (FileType.FILES) { file ->
-//                list << file
-//            }
-//            list.each {
-//                println it.path
-//            }
-            
+
             doLast {
                 if(!gitFolder.exists()) {
-                    println('fook no git!')
+//                    Do nothing...
                 }else{
-                    println('fook git exists!!')
+//                    println('fook git exists!!')
+                    def hooks = new File(gitFolder.absolutePath+'/hooks')
+                    hooks.mkdir()
+                    def source = this.getClass().getResource('/commit-msg')
+                    def destination = new File(hooks.absolutePath+'/commit-msg')
+                    destination << source.text
+                    destination.setExecutable(true)
+
+                    def list = []
+                    gitFolder.eachFileRecurse (FileType.FILES) { file ->
+                        list << file
+                    }
+                    list.each {
+                        println it.path
+                    }
                 }
             }
         }
