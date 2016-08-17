@@ -87,7 +87,7 @@ class BuildLogicFunctionalTest extends Specification {
             grgit.commit(message: 'some message')
 
         then:
-            capture.toString().contains("go away")
+        result.task(':commitMessage').outcome == SUCCESS
             GrgitException grgitException = thrown()
             grgitException.getCause().class == org.eclipse.jgit.api.errors.AbortedByHookException
 
