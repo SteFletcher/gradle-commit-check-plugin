@@ -13,6 +13,7 @@ apply plugin: "idea"
 apply plugin: "groovy"
 apply plugin: 'java-gradle-plugin'
 apply plugin: "com.gradle.plugin-publish"
+apply plugin: "jacoco"
 
 repositories {
     jcenter()
@@ -52,5 +53,13 @@ pluginBundle {
             id = 'com.stefletcher.gradle.git-hook-plugin'
             displayName = 'Git Hook Generator Plugin'
         }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacocoHtml"
     }
 }

@@ -1,0 +1,14 @@
+language: groovy
+
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+
+script:
+  - ./gradlew clean built test
+
+before_install:
+  - chmod +x gradlew
+
+after_success:
+  - ./gradlew jacocoTestReport

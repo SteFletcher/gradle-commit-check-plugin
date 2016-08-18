@@ -20,21 +20,26 @@ class BuildLogicFunctionalTest extends Specification {
 
     def setup() {
         buildFile = testProjectDir.newFile('build.gradle')
+        buildFile << '''
+            plugins {
+                id 'com.stefletcher.gradle.git-hook-plugin'
+            }
+
+            gitCommitFormat {
+                expression = /^[A-Za-z0-9]* -[A-Za-z0-9 ]*$/
+            }
+        '''
     }
 
     def "file written to .git directory when directory exists"() {
         given:
         def grgit = Grgit.init(dir: testProjectDir.getRoot())
-        buildFile << """
-            plugins {
-                id 'com.stefletcher.gradle.git-hook-plugin'
-            }
-        """
         when:
             def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
                 .withArguments('commitMessage', '--stacktrace')
                 .withPluginClasspath()
+                    .withDebug(true)
                 .build()
 
         then:
@@ -46,11 +51,7 @@ class BuildLogicFunctionalTest extends Specification {
 
     def "no attempt to write hook file if .git folder doesn't exist"() {
         given:
-        buildFile << """
-            plugins {
-                id 'com.stefletcher.gradle.git-hook-plugin'
-            }
-        """
+            // plugin is applied to a non-git project
         when:
         def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
@@ -67,12 +68,8 @@ class BuildLogicFunctionalTest extends Specification {
 
     def "incorrect commit message format fails and informs with correct format"() {
         given:
-        grgit = Grgit.init(dir: testProjectDir.getRoot())
-        buildFile << """
-                plugins {
-                    id 'com.stefletcher.gradle.git-hook-plugin'
-                }
-            """
+            grgit = Grgit.init(dir: testProjectDir.getRoot())
+
         def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
                 .withArguments('commitMessage', '--stacktrace')
@@ -88,8 +85,32 @@ class BuildLogicFunctionalTest extends Specification {
 
         then:
         result.task(':commitMessage').outcome == SUCCESS
+            capture.toString().contains("Incorrect commit message format: some message")
             GrgitException grgitException = thrown()
             grgitException.getCause().class == org.eclipse.jgit.api.errors.AbortedByHookException
+
+    }
+
+    def "should succeed when commit message format meets expectation"() {
+        given:
+        grgit = Grgit.init(dir: testProjectDir.getRoot())
+
+        def result = GradleRunner.create()
+                .withProjectDir(testProjectDir.root)
+                .withArguments('commitMessage', '--stacktrace')
+                .withPluginClasspath()
+                .build()
+        // add all to git index
+        grgit.add(patterns: ['*'], update: true)
+
+        when:
+        def toCommit = new File(testProjectDir.getRoot().getAbsolutePath() + '/test.txt')
+        toCommit << "some text"
+        grgit.commit(message: 'SOMEID - MESSAGE')
+
+        then:
+        result.task(':commitMessage').outcome == SUCCESS
+        !capture.toString().contains("Incorrect commit message format: \"SOMEID - MESSAGE\"")
 
     }
 }

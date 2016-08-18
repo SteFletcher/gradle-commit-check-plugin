@@ -4,23 +4,32 @@ import groovy.io.FileType
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class DevPlugin implements Plugin<Project> {
+import java.util.regex.Pattern
+
+
+class GitHookPlugin implements Plugin<Project> {
     void apply(Project project) {
+        project.extensions.create("gitCommitFormat", MessageRegExp)
+
         project.task('commitMessage') {
             def gitFolder = new File(project.projectDir.absolutePath+'/.git')
 
             doLast {
-                if(!gitFolder.exists()) {
+                def String x = project.gitCommitFormat.expression
+                if(x.charAt(x.length()-1)=="\$"){
+                    x=x.substring(0, x.length()-1)
+                    x=x+"\\\$"
+                }
+                if(!gitFolder.exists() || project.gitCommitFormat.expression == '') {
 //                    Do nothing...
                 }else{
-//                    println('fook git exists!!')
                     def hooks = new File(gitFolder.absolutePath+'/hooks')
-                    hooks.mkdir()
+
                     def source = this.getClass().getResource('/commit-msg')
                     def destination = new File(hooks.absolutePath+'/commit-msg')
-                    destination << source.text
+                    println(x)
+                    destination << source.text.replaceAll("EXPR_HERE", x)
                     destination.setExecutable(true)
-
                     def list = []
                     gitFolder.eachFileRecurse (FileType.FILES) { file ->
                         list << file
@@ -32,4 +41,8 @@ class DevPlugin implements Plugin<Project> {
             }
         }
     }
+}
+
+class MessageRegExp {
+    def expression = null;
 }
