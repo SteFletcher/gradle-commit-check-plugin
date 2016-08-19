@@ -22,7 +22,7 @@ class BuildLogicFunctionalTest extends Specification {
         buildFile = testProjectDir.newFile('build.gradle')
         buildFile << '''
             plugins {
-                id 'com.stefletcher.gradle.git-hook-plugin'
+                id 'com.stefletcher.gradle-commit-check-plugin'
             }
 
             gitCommitFormat {

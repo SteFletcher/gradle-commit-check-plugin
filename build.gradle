@@ -50,8 +50,8 @@ pluginBundle {
 
     plugins {
         gitHookPlugin {
-            id = 'com.stefletcher.gradle.git-hook-plugin'
-            displayName = 'Git Hook Generator Plugin'
+            id = 'com.stefletcher.gradle-commit-check-plugin'
+            displayName = 'Gradle plugin to check Git commit messages client-side against a provided regex.'
         }
     }
 }

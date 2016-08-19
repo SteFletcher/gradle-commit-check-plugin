@@ -5,7 +5,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - ./gradlew clean build test --stacktrace
+  - ./gradlew clean build test --debug
 
 before_install:
   - chmod +x gradlew

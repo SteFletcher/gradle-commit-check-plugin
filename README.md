@@ -1,0 +1,1 @@
+Gradle plugin to validate commit message format client-side before a push.
