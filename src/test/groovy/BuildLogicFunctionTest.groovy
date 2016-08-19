@@ -87,7 +87,7 @@ class BuildLogicFunctionalTest extends Specification {
 
         then:
         result.task(':commitMessage').outcome == SUCCESS
-//            capture.toString().contains("Incorrect commit message format: some message")
+            capture.toString().contains("Incorrect commit message format: some message")
             GrgitException grgitException = thrown()
             grgitException.getCause().class == org.eclipse.jgit.api.errors.AbortedByHookException
 
@@ -112,7 +112,7 @@ class BuildLogicFunctionalTest extends Specification {
 
         then:
         result.task(':commitMessage').outcome == SUCCESS
-//        !capture.toString().contains("Incorrect commit message format: \"SOMEID - MESSAGE\"")
+        !capture.toString().contains("Incorrect commit message format: \"SOMEID - MESSAGE\"")
 
     }
 }
