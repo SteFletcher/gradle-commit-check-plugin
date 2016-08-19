@@ -12,13 +12,15 @@ import org.springframework.boot.test.OutputCapture
 
 class BuildLogicFunctionalTest extends Specification {
     @Rule final TemporaryFolder testProjectDir = new TemporaryFolder()
-    File buildFile
-    Grgit grgit
 
     @org.junit.Rule
     OutputCapture capture = new OutputCapture()
 
+    File buildFile
+    Grgit grgit
+
     def setup() {
+
         buildFile = testProjectDir.newFile('build.gradle')
         buildFile << '''
             plugins {
