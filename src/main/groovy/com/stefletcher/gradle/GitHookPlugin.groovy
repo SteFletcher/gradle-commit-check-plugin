@@ -30,13 +30,6 @@ class GitHookPlugin implements Plugin<Project> {
                     println(x)
                     destination << source.text.replaceAll("EXPR_HERE", x)
                     destination.setExecutable(true)
-                    def list = []
-                    gitFolder.eachFileRecurse (FileType.FILES) { file ->
-                        list << file
-                    }
-                    list.each {
-                        println it.path
-                    }
                 }
             }
         }
