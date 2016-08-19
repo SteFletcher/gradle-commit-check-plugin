@@ -28,7 +28,7 @@ class BuildLogicFunctionalTest extends Specification {
             }
 
             gitCommitFormat {
-                expression = /^[A-Za-z0-9]* -[A-Za-z0-9 ]*$/
+                expression = /^[A-Za-z0-9]* -[A-Za-z0-9 ]*/
             }
         '''
     }
