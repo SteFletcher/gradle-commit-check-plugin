@@ -3,6 +3,7 @@ language: groovy
 jdk:
   - oraclejdk7
   - oraclejdk8
+  - openjdk6
 
 script:
   - ./gradlew clean build test
