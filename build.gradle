@@ -73,3 +73,6 @@ test {
         events "passed", "skipped", "failed", "standardOut", "standardError"
     }
 }
+
+ext['gradle.publish.key'] = System.env.gradlePublishKey
+ext['gradle.publish.secret'] = System.env.gradlePublishSecret
