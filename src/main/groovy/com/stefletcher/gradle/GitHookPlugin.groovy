@@ -18,13 +18,13 @@ class GitHookPlugin implements Plugin<Project> {
 
             doLast {
                 def String x = project.gitCommitFormat.expression
-                if(x.charAt(x.length()-1)=="\$"){
-                    x=x.substring(0, x.length()-1)
-                    x=x+"\\\$"
-                }
-                if(!gitFolder.exists() || project.gitCommitFormat.expression == '') {
+                if(x == null || !gitFolder.exists() || project.gitCommitFormat.expression == '') {
 //                    Do nothing...
                 }else{
+                    if(x.charAt(x.length()-1)=="\$"){
+                        x=x.substring(0, x.length()-1)
+                        x=x+"\\\$"
+                    }
                     def hooks = new File(gitFolder.absolutePath+'/hooks')
 
                     def source = this.getClass().getResource('/commit-msg')

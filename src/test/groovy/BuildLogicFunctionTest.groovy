@@ -116,4 +116,30 @@ class BuildLogicFunctionalTest extends Specification {
         !capture.toString().contains("Incorrect commit message format: \"SOMEID - MESSAGE\"")
 
     }
+
+
+    def "should not fail when commit message format not defined"() {
+        when:
+//        def buildFile = new File(testProjectDir.absolutePath+'/build.gradle')
+        buildFile.delete()
+        buildFile = testProjectDir.newFile('build.gradle')
+        buildFile << '''
+            plugins {
+                id 'com.stefletcher.gradle-commit-check-plugin'
+                id 'java'
+            }
+
+        '''
+
+        def result = GradleRunner.create()
+                .withProjectDir(testProjectDir.root)
+                .withArguments('build', '--stacktrace')
+                .withPluginClasspath()
+                .build()
+
+        then:
+        result.task(':commitMessage').outcome == SUCCESS
+
+
+    }
 }
