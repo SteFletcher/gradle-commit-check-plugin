@@ -16,4 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'githookplugin'
+rootProject.name = 'gradle-commit-check-plugin'
