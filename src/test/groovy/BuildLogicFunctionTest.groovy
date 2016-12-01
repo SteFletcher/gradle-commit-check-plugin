@@ -25,6 +25,7 @@ class BuildLogicFunctionalTest extends Specification {
         buildFile << '''
             plugins {
                 id 'com.stefletcher.gradle-commit-check-plugin'
+                id 'java'
             }
 
             gitCommitFormat {
@@ -39,7 +40,7 @@ class BuildLogicFunctionalTest extends Specification {
         when:
             def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
-                .withArguments('commitMessage', '--stacktrace')
+                .withArguments('build', '--stacktrace')
                 .withPluginClasspath()
                     .withDebug(true)
                 .build()
@@ -57,7 +58,7 @@ class BuildLogicFunctionalTest extends Specification {
         when:
         def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
-                .withArguments('commitMessage', '--stacktrace')
+                .withArguments('build', '--stacktrace')
                 .withPluginClasspath()
                 .build()
 
@@ -74,7 +75,7 @@ class BuildLogicFunctionalTest extends Specification {
 
         def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
-                .withArguments('commitMessage', '--stacktrace')
+                .withArguments('build', '--stacktrace')
                 .withPluginClasspath()
                 .build()
         // add all to git index
@@ -99,7 +100,7 @@ class BuildLogicFunctionalTest extends Specification {
 
         def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
-                .withArguments('commitMessage', '--stacktrace')
+                .withArguments('build', '--stacktrace')
                 .withPluginClasspath()
                 .build()
         // add all to git index

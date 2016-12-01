@@ -9,9 +9,11 @@ import java.util.regex.Pattern
 
 class GitHookPlugin implements Plugin<Project> {
     void apply(Project project) {
+
         project.extensions.create("gitCommitFormat", MessageRegExp)
 
         project.task('commitMessage') {
+
             def gitFolder = new File(project.projectDir.absolutePath+'/.git')
 
             doLast {
@@ -33,6 +35,8 @@ class GitHookPlugin implements Plugin<Project> {
                 }
             }
         }
+
+        project.test.finalizedBy project.commitMessage
     }
 }
 
