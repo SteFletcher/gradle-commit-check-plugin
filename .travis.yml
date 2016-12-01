@@ -1,6 +1,7 @@
 language: groovy
 
 jdk:
+  - oraclejdk6
   - oraclejdk7
   - oraclejdk8
 
@@ -12,3 +13,4 @@ before_install:
 
 after_success:
 - "./gradlew jacocoTestReport coveralls --debug"
+- "./gradlew publishPlugins"
