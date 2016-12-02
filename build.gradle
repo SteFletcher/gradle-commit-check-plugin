@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.gradle.publish:plugin-publish-plugin:0.9.5"
+        classpath "gradle.plugin.com.stefletcher.gradle:javabaseplugin:1.0.7"
     }
 }
 
@@ -13,11 +14,10 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
+apply plugin: "com.stefletcher.gradle-javabase-plugin"
 apply plugin: "idea"
-apply plugin: "groovy"
 apply plugin: 'java-gradle-plugin'
 apply plugin: "com.gradle.plugin-publish"
-apply plugin: "jacoco"
 
 repositories {
     jcenter()
