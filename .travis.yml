@@ -7,7 +7,7 @@ jdk:
 
 script:
   - ./gradlew clean test
-  - jdk_switcher use openjdk6
+#  - jdk_switcher use openjdk6
   - ./gradlew clean integTest
 
 before_install:
