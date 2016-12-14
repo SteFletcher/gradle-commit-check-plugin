@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.gradle.publish:plugin-publish-plugin:0.9.5"
-        classpath "gradle.plugin.com.stefletcher.gradle:javabaseplugin:1.0.7"
+        classpath "gradle.plugin.com.stefletcher.gradle-javabase-plugin:javabaseplugin:1.0.13"
     }
 }
 
