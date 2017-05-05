@@ -4,6 +4,8 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 
+env:
+- GRADLE_OPTS="-Xmx512m -XX:MaxPermSize=1024m"
 
 script:
   - ./gradlew clean test

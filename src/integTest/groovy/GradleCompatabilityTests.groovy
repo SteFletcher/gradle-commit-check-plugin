@@ -56,7 +56,7 @@ class GradleCompatabilityTests extends Specification {
         then:
             result.task(":build").outcome == SUCCESS
         where:
-            gradleVersion << ['2.8','2.14', '3.0', '3.2.1']
+            gradleVersion << ['2.8','2.14','3.2.1']
     }
 
     URI versionToURI(String version) {
