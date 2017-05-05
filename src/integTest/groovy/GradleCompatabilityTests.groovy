@@ -47,7 +47,7 @@ class GradleCompatabilityTests extends Specification {
         logger.info "Testing with gradle version: $gradleVersion"
         def result = GradleRunner.create()
                 .withProjectDir(testProjectDir.root)
-                .withArguments('build', '--stacktrace', '-XX:MaxPermSize=512m')
+                .withArguments('build', '--stacktrace', '-PjvmArgs="-XX:MaxPermSize=512m"')
                 .withPluginClasspath()
                 .withGradleDistribution(versionToURI(gradleVersion))
                 .build()

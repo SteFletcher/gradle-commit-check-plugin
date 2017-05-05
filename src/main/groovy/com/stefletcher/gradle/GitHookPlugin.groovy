@@ -14,7 +14,6 @@ if [ $? -eq 0 ]; then
 fi
 
 echo "MESSAGE_HERE"
-echo "COMMIT MESSAGE: $commitMessage"
 exit 1
 '''
 
