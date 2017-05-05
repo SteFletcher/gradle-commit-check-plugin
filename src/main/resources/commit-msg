@@ -1,11 +1,12 @@
-#!/bin/sh
+'''#!/bin/sh
 
-message=`cat $1`
-a=`echo "$message" | grep 'EXPR_HERE'`
+commitMessage=`cat $1`
+a=`echo "$commitMessage" | grep 'EXPR_HERE'`
 if [ $? -eq 0 ]; then
  exit 0
 fi
 
-echo "Incorrect commit message format: $message"
+echo "MESSAGE_HERE"
 
 exit 1
+'''
