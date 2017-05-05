@@ -50,7 +50,8 @@ class BuildLogicFunctionalTest extends Specification {
 
             gitCommitFormat {
                 expression = /^[A-Za-z0-9]* -[A-Za-z0-9 ]*/
-                template = 'Commit message must conform to: <% print message %>'
+                template = \'\'\'Commit message must conform to: $expression
+Error with: $commitMessage.\'\'\'
             }
 
         '''
@@ -71,7 +72,7 @@ class BuildLogicFunctionalTest extends Specification {
 
         then:
         thrown GrgitException
-        capture.toString().contains('''Commit message must conform to: ^[A-Za-z0-9]* -[A-Za-z0-9 ]*''')
+        capture.toString().contains('''Commit message must conform to: ^[A-Za-z0-9]* -[A-Za-z0-9 ]*\nError with: BAD COMMIT MESSAGE.''')
 
     }
 
@@ -189,7 +190,7 @@ class BuildLogicFunctionalTest extends Specification {
 
         def pluginExtension = new MessageRegExp()
         pluginExtension.expression = "great!"
-        pluginExtension.template = "This is a template with a message: <% print message %>"
+        pluginExtension.template = "This is a template with a message: <% print expression %>"
 
 
         when:
@@ -201,8 +202,8 @@ class BuildLogicFunctionalTest extends Specification {
     def "should build message from template string and binding parameters" () {
         given:
         GitHookPlugin gitHookPlugin = new GitHookPlugin();
-        def template = "This is a template with a message: <% print message %>"
-        def binding = ["message":"great!"]
+        def template = "This is a template with a message: <% print expression %>"
+        def binding = ["expression":"great!"]
         when:
         def result = gitHookPlugin.formatMessage(binding, template)
         then:
